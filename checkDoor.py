@@ -14,7 +14,7 @@ fileName = "data/"
 fileNumber = 3
 commit = 0 if len(sys.argv) < 2 else sys.argv[1]
 counter=60*24
-time.sleep(60)
+time.sleep(10)
 setDoorOpen(True):
 
 
