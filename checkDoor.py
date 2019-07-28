@@ -34,7 +34,7 @@ def setDoorOpen(state):
     minute = datetime.datetime.today().minute
     time = str(hour*60+minute)
     isOpen = str(1 if state else 0)
-    f = open(fileName+str(fileNumber), "a+")
+    f = open(fileName+str(fileNumber)+".txt", "a+")
     f.write(day+" "+time+" "+isOpen+"\n")
     f.close()
     subprocess.run(["git", "add", "."])
