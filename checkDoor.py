@@ -14,9 +14,6 @@ fileName = "data/"
 fileNumber = 3
 commit = 0 if len(sys.argv) < 2 else sys.argv[1]
 counter=60*24
-time.sleep(10)
-checkDoor()
-
 
 
 def checkDoor():
@@ -53,6 +50,9 @@ def setDoorOpen(state):
         commit = int(commit)+1
 
 
+time.sleep(10)
+checkDoor()		
+		
 while True:
     checkDoor()
     time.sleep(60)
