@@ -11,7 +11,7 @@ import sys
 #subprocess.run(["ls", "-l"])
 
 fileName = "data/"
-fileNumber = 1
+fileNumber = 2
 commit = 0 if len(sys.argv) < 2 else sys.argv[1]
 
 
