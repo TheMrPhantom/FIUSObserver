@@ -37,10 +37,13 @@ def setDoorOpen(state):
     f = open(fileName+str(fileNumber)+".txt", "a+")
     f.write(day+" "+time+" "+isOpen+"\n")
     f.close()
-    subprocess.run(["git", "add", "."])
-    subprocess.run(["git", "commit", "-m", "Update "+str(commit)])
-    subprocess.run(["git", "push"])
-    print()
+    counter += 1
+    if counter > 60*24:
+        counter = 0
+        subprocess.run(["git", "add", "."])
+        subprocess.run(["git", "commit", "-m", "Update "+str(commit)])
+        subprocess.run(["git", "push"])
+        print()
     commit = int(commit)+1
 
 
