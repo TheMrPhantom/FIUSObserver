@@ -11,7 +11,7 @@ import sys
 #subprocess.run(["ls", "-l"])
 
 fileName = "data/"
-fileNumber = 0
+fileNumber = 1
 commit = 0 if len(sys.argv) < 2 else sys.argv[1]
 
 
@@ -38,11 +38,12 @@ def setDoorOpen(state):
     f.close()
     subprocess.run(["git", "pull"])
     subprocess.run(["git", "add", "."])
-    subprocess.run(["git", "commit", "-m", "\"Test "+str(commit)+"\""])
+    subprocess.run(["git", "commit", "-m", "Test "+str(commit)])
     subprocess.run(["git", "push"])
+    print()
     commit = int(commit)+1
 
 
 while True:
     checkDoor()
-    time.sleep(5)
+    time.sleep(60)
