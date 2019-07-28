@@ -38,7 +38,7 @@ def setDoorOpen(state):
     f.close()
     subprocess.run(["git", "pull"])
     subprocess.run(["git", "add", "."])
-    subprocess.run(["git", "commit", "-m", "Test "+str(commit)])
+    subprocess.run(["git", "commit", "-m", "Update "+str(commit)])
     subprocess.run(["git", "push"])
     print()
     commit = int(commit)+1
