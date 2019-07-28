@@ -11,9 +11,13 @@ import sys
 #subprocess.run(["ls", "-l"])
 
 fileName = "data/"
-fileNumber = 2
+fileNumber = 3
 commit = 0 if len(sys.argv) < 2 else sys.argv[1]
-counter=0
+counter=60*12+1
+time.sleep(60)
+setDoorOpen(True):
+
+
 
 def checkDoor():
     r = requests.get("http://fius.informatik.uni-stuttgart.de/isOpen.php")
