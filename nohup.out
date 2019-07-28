@@ -1,0 +1,4 @@
+  File "checkDoor.py", line 48
+    subprocess.run(["git", "pull"])
+                                  ^
+TabError: inconsistent use of tabs and spaces in indentation

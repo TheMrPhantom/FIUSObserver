@@ -45,7 +45,7 @@ def setDoorOpen(state):
     counter += 1
     if counter > 60*12:
         counter = 0
-	subprocess.run(["git", "pull"])
+        subprocess.run(["git", "pull"])
         subprocess.run(["git", "add", "."])
         subprocess.run(["git", "commit", "-m", "Update "+str(commit)])
         subprocess.run(["git", "push"])
