@@ -15,7 +15,7 @@ fileNumber = 3
 commit = 0 if len(sys.argv) < 2 else sys.argv[1]
 counter=60*24
 time.sleep(10)
-setDoorOpen(True):
+checkDoor()
 
 
 
@@ -45,7 +45,7 @@ def setDoorOpen(state):
     counter += 1
     if counter > 60*12:
         counter = 0
-		subprocess.run(["git", "pull"])
+	subprocess.run(["git", "pull"])
         subprocess.run(["git", "add", "."])
         subprocess.run(["git", "commit", "-m", "Update "+str(commit)])
         subprocess.run(["git", "push"])
