@@ -13,7 +13,7 @@ import sys
 fileName = "data/"
 fileNumber = 2
 commit = 0 if len(sys.argv) < 2 else sys.argv[1]
-
+counter=0
 
 def checkDoor():
     r = requests.get("http://fius.informatik.uni-stuttgart.de/isOpen.php")
@@ -28,6 +28,7 @@ def checkDoor():
 
 def setDoorOpen(state):
     global commit
+    global counter
     subprocess.run(["git", "pull"])
     day = str(datetime.datetime.today().weekday())
     hour = datetime.datetime.today().hour
@@ -44,7 +45,7 @@ def setDoorOpen(state):
         subprocess.run(["git", "commit", "-m", "Update "+str(commit)])
         subprocess.run(["git", "push"])
         print()
-    commit = int(commit)+1
+        commit = int(commit)+1
 
 
 while True:
