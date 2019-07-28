@@ -28,6 +28,7 @@ def checkDoor():
 
 def setDoorOpen(state):
     global commit
+    subprocess.run(["git", "pull"])
     day = str(datetime.datetime.today().weekday())
     hour = datetime.datetime.today().hour
     minute = datetime.datetime.today().minute
@@ -36,7 +37,6 @@ def setDoorOpen(state):
     f = open(fileName+str(fileNumber), "a+")
     f.write(day+" "+time+" "+isOpen+"\n")
     f.close()
-    subprocess.run(["git", "pull"])
     subprocess.run(["git", "add", "."])
     subprocess.run(["git", "commit", "-m", "Update "+str(commit)])
     subprocess.run(["git", "push"])
