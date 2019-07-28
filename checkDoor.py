@@ -29,7 +29,7 @@ def checkDoor():
 def setDoorOpen(state):
     global commit
     global counter
-    subprocess.run(["git", "pull"])
+    
     day = str(datetime.datetime.today().weekday())
     hour = datetime.datetime.today().hour
     minute = datetime.datetime.today().minute
@@ -39,8 +39,9 @@ def setDoorOpen(state):
     f.write(day+" "+time+" "+isOpen+"\n")
     f.close()
     counter += 1
-    if counter > 60*24:
+    if counter > 60*12:
         counter = 0
+		subprocess.run(["git", "pull"])
         subprocess.run(["git", "add", "."])
         subprocess.run(["git", "commit", "-m", "Update "+str(commit)])
         subprocess.run(["git", "push"])
