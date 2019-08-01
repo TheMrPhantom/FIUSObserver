@@ -42,9 +42,16 @@ def calculate_normalized_attendance(day, hour, data):
     return normalized_attendance
 
 
+"""
+PREPROCESSING
+"""
 data_filename = os.path.abspath(sys.argv[1])
-read_observation_data(data_filename)
+observation_data = read_observation_data(data_filename)
+reduced_data = reduce_time_resolution(observation_data)
 
+"""
+VISUALISATION
+"""
 hours_per_day = 24
 days_per_week = 7
 a = np.random.random((hours_per_day, days_per_week))
