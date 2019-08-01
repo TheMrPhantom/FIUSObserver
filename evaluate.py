@@ -19,13 +19,13 @@ def read_observation_data(filename):
 
 
 def reduce_time_resolution(data):
-    attendance_data = []
+    attendance_data = np.zeros((24, 7))
     hour_marked_data = list(map(lambda x: (x[0], math.floor(int(x[1]) / 60.0), x[2]), data))
     for day in range(0, 7):
         day_data = list(filter(lambda x: day == int(x[0]), hour_marked_data))
         for hour in range(0, 24):
             hour_data = list(filter(lambda x: hour == x[1], day_data))
-            attendance_data.append(calculate_normalized_attendance(day, hour, hour_data))
+            attendance_data[hour][day] = calculate_normalized_attendance(day, hour, hour_data)
     return attendance_data
 
 
@@ -38,8 +38,7 @@ def calculate_normalized_attendance(day, hour, data):
     zero_tuple = (day, hour, 0)
 
     summed_attendance = reduce(summing_lambda, data, zero_tuple)
-    normalized_attendance = (day, hour, summed_attendance[2] / len(data) if len(data) else 0)
-    return normalized_attendance
+    return summed_attendance[2] / len(data) if len(data) else 0
 
 
 """
@@ -52,8 +51,5 @@ reduced_data = reduce_time_resolution(observation_data)
 """
 VISUALISATION
 """
-hours_per_day = 24
-days_per_week = 7
-a = np.random.random((hours_per_day, days_per_week))
-plt.imshow(a, cmap='hot', interpolation='nearest')
+plt.imshow(reduced_data, cmap='hot', interpolation='nearest')
 plt.show()
