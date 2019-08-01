@@ -17,14 +17,15 @@ counter=60*24
 
 
 def checkDoor():
-    r = requests.get("http://fius.informatik.uni-stuttgart.de/isOpen.php")
-    # try:
-    if r.text == "open":
-        setDoorOpen(True)
-    else:
-        setDoorOpen(False)
-    # except:
-     #   print("Error")
+    try:
+        r = requests.get("http://fius.informatik.uni-stuttgart.de/isOpen.php")
+    
+        if r.text == "open":
+            setDoorOpen(True)
+        else:
+            setDoorOpen(False)
+    except:
+        print("Error")
 
 
 def setDoorOpen(state):
