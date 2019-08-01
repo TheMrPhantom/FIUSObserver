@@ -52,4 +52,4 @@ reduced_data = reduce_time_resolution(observation_data)
 VISUALISATION
 """
 plt.imshow(reduced_data, cmap='RdYlGn', interpolation='nearest', aspect=0.15)
-plt.show()
+plt.savefig('attendance.png', dpi=300)
