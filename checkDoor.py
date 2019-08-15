@@ -3,14 +3,13 @@
 import requests
 import time
 import subprocess
-import datetime
 import sys
+from datetime import datetime, timedelta
 
 
 base_path = "data/"
-file_name = 3
-commit = 0 if len(sys.argv) < 2 else sys.argv[1]
-counter = 60 * 24
+file_name = 3 if len(sys.argv) < 2 else sys.argv[1]
+next_commit_time = datetime.datetime.now()
 
 
 def check_door_state():
@@ -39,22 +38,23 @@ def produce_binary_data_point(is_open):
     return tuple(timestamp, is_open)
 
 
+def commit_data():
+    subprocess.run(["git", "pull"])
+    subprocess.run(["git", "add", "."])
+    subprocess.run(["git", "commit", "-m", "Update " + str(datetime.datetime.now())])
+    subprocess.run(["git", "push"])
+
+
 def log_door_state(is_open):
-    global commit
-    global counter
-    
+    global next_commit_time
+
     f = open(base_path + str(file_name) + ".txt", "a+")
     f.write(produce_textual_data_point(is_open))
     f.close()
-    counter += 1
-    if counter > 60*12:
-        counter = 0
-        subprocess.run(["git", "pull"])
-        subprocess.run(["git", "add", "."])
-        subprocess.run(["git", "commit", "-m", "Update "+str(commit)])
-        subprocess.run(["git", "push"])
+    if datetime.datetime.now() > next_commit_time:
+        commit_data()
+        next_commit_time = datetime.datetime.now() + timedelta(hours=12)
         print()
-        commit = int(commit)+1
 
 
 time.sleep(10)
