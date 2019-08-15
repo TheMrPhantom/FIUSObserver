@@ -37,6 +37,11 @@ def produce_textual_data_point(is_open):
     return day + " " + time + " " + openness_state + "\n"
 
 
+def produce_binary_data_point(is_open):
+    timestamp = datetime.datetime.today().timestamp()
+    return tuple(timestamp, is_open)
+
+
 def setDoorOpen(state):
     global commit
     global counter
