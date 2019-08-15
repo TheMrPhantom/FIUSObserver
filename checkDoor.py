@@ -1,29 +1,26 @@
-
 #!/usr/bin/env -S python3 -u
 
 import requests
-import os
 import time
 import subprocess
 import datetime
 import sys
 
-#subprocess.run(["ls", "-l"])
 
-fileName = "data/"
-fileNumber = 3
+base_path = "data/"
+file_name = 3
 commit = 0 if len(sys.argv) < 2 else sys.argv[1]
-counter=60*24
+counter = 60 * 24
 
 
-def checkDoor():
+def check_door_state():
     try:
         r = requests.get("http://fius.informatik.uni-stuttgart.de/isOpen.php")
     
         if r.text == "open":
-            setDoorOpen(True)
+            log_door_state(True)
         else:
-            setDoorOpen(False)
+            log_door_state(False)
     except:
         print("Error")
 
@@ -42,12 +39,12 @@ def produce_binary_data_point(is_open):
     return tuple(timestamp, is_open)
 
 
-def setDoorOpen(state):
+def log_door_state(is_open):
     global commit
     global counter
     
-    f = open(fileName+str(fileNumber)+".txt", "a+")
-    f.write(produce_textual_data_point(state))
+    f = open(base_path + str(file_name) + ".txt", "a+")
+    f.write(produce_textual_data_point(is_open))
     f.close()
     counter += 1
     if counter > 60*12:
@@ -61,8 +58,8 @@ def setDoorOpen(state):
 
 
 time.sleep(10)
-checkDoor()		
-		
+check_door_state()
+
 while True:
-    checkDoor()
+    check_door_state()
     time.sleep(60)
