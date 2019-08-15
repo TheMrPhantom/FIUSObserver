@@ -28,17 +28,21 @@ def checkDoor():
         print("Error")
 
 
+def produce_textual_data_point(is_open):
+    day = str(datetime.datetime.today().weekday())
+    hour = datetime.datetime.today().hour
+    minute = datetime.datetime.today().minute
+    time = str(hour * 60 + minute)
+    openness_state = str(1 if is_open else 0)
+    return day + " " + time + " " + openness_state + "\n"
+
+
 def setDoorOpen(state):
     global commit
     global counter
     
-    day = str(datetime.datetime.today().weekday())
-    hour = datetime.datetime.today().hour
-    minute = datetime.datetime.today().minute
-    time = str(hour*60+minute)
-    isOpen = str(1 if state else 0)
     f = open(fileName+str(fileNumber)+".txt", "a+")
-    f.write(day+" "+time+" "+isOpen+"\n")
+    f.write(produce_textual_data_point(state))
     f.close()
     counter += 1
     if counter > 60*12:
