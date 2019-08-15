@@ -15,11 +15,7 @@ next_commit_time = datetime.datetime.now()
 def check_door_state():
     try:
         r = requests.get("http://fius.informatik.uni-stuttgart.de/isOpen.php")
-    
-        if r.text == "open":
-            log_door_state(True)
-        else:
-            log_door_state(False)
+        return r.text == "open"
     except:
         print("Error")
 
@@ -58,8 +54,10 @@ def log_door_state(is_open):
 
 
 time.sleep(10)
-check_door_state()
+door_state = check_door_state()
+log_door_state(door_state)
 
 while True:
-    check_door_state()
+    door_state = check_door_state()
+    log_door_state(door_state)
     time.sleep(60)
