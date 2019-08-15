@@ -20,7 +20,7 @@ def check_door_state():
         print("Error")
 
 
-def produce_textual_data_point(is_open):
+def produce_dated_data_point(is_open):
     day = str(datetime.datetime.today().weekday())
     hour = datetime.datetime.today().hour
     minute = datetime.datetime.today().minute
@@ -29,9 +29,10 @@ def produce_textual_data_point(is_open):
     return day + " " + time + " " + openness_state + "\n"
 
 
-def produce_binary_data_point(is_open):
-    timestamp = datetime.datetime.today().timestamp()
-    return tuple(timestamp, is_open)
+def produce_timestamped_data_point(is_open):
+    timestamp = int(datetime.datetime.today().timestamp())
+    openness_state = str(1 if is_open else 0)
+    return timestamp + " " + openness_state + "\n"
 
 
 def commit_data():
@@ -45,7 +46,7 @@ def log_door_state(is_open):
     global next_commit_time
 
     f = open(base_path + str(file_name) + ".txt", "a+")
-    f.write(produce_textual_data_point(is_open))
+    f.write(produce_dated_data_point(is_open))
     f.close()
     if datetime.datetime.now() > next_commit_time:
         commit_data()
